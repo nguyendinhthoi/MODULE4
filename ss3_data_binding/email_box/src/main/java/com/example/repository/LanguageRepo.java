@@ -1,0 +1,63 @@
+package com.example.repository;
+
+import com.example.model.Language;
+import org.springframework.stereotype.Repository;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@Repository
+public class LanguageRepo implements ILanguageRepo {
+    private static List<Language> languages = new ArrayList<>();
+
+    static {
+        languages.add(new Language(1, "English", 5, 1, "okay"));
+        languages.add(new Language(2, "Vietnamese", 10, 0, "okay1"));
+        languages.add(new Language(3, "Japanese", 15, 1, "okay2"));
+        languages.add(new Language(4, "Chinese", 20, 0, "okay3"));
+    }
+
+    private static List<String> stringList = new ArrayList<>();
+
+    static {
+        stringList.add("English");
+        stringList.add("Vietnamese");
+        stringList.add("Japanese");
+        stringList.add("Chinese");
+    }
+
+    private static List<Integer> integerList = new ArrayList<>();
+
+    static {
+        integerList.add(5);
+        integerList.add(10);
+        integerList.add(15);
+        integerList.add(25);
+        integerList.add(50);
+    }
+
+    @Override
+    public List<Language> display() {
+        return languages;
+    }
+
+    @Override
+    public Language findID(int id) {
+        return languages.get(id - 1);
+    }
+
+    @Override
+    public List<String> displayName() {
+        return stringList;
+    }
+
+    @Override
+    public List<Integer> displaySize() {
+        return integerList;
+    }
+
+    @Override
+    public void update(Language language, int id) {
+        languages.set(id,language);
+    }
+}
