@@ -35,9 +35,9 @@ public class LanguageController {
     }
 
     @PostMapping("/edit")
-    public String update(@ModelAttribute Language language, RedirectAttributes redirectAttributes) {
-        languageRepo.update(language,language.getId());
+    public String update(@ModelAttribute Language language, RedirectAttributes redirectAttributes, @RequestParam int id) {
+        languageRepo.update(language, id);
         redirectAttributes.addFlashAttribute("message", "The Language was updated");
-        return "redirect:/language/list";
+        return "redirect:/language";
     }
 }

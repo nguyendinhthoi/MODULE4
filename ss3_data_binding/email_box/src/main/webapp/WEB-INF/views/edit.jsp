@@ -5,7 +5,7 @@
 <head>
     <title>Edit Form</title>
     <style>
-        .mess{
+        .mess {
             color: green;
         }
     </style>
@@ -13,6 +13,7 @@
 <body>
 <h3>Setting</h3>
 <form:form modelAttribute="language" action="/language/edit" method="post">
+    <form:hidden path="id"></form:hidden>
     Languages:
     <form:select path="name">
         <form:option value="NONE"> --SELECT--</form:option>
@@ -27,7 +28,7 @@
     emails per page
     <br>
     Spam filter:
-    <form:checkbox path="filter" value="1"/>
+    <form:checkbox path="filter" value="Enable spams filter"/>
     Enable spams filter
     <br>
     Signature:

@@ -11,10 +11,10 @@ public class LanguageRepo implements ILanguageRepo {
     private static List<Language> languages = new ArrayList<>();
 
     static {
-        languages.add(new Language(1, "English", 5, 1, "okay"));
-        languages.add(new Language(2, "Vietnamese", 10, 0, "okay1"));
-        languages.add(new Language(3, "Japanese", 15, 1, "okay2"));
-        languages.add(new Language(4, "Chinese", 20, 0, "okay3"));
+        languages.add(new Language(1, "English", 5, "Enable spams filter", "okay"));
+        languages.add(new Language(2, "Vietnamese", 10, "Disable spams filter", "okay1"));
+        languages.add(new Language(3, "Japanese", 15, "Enable spams filter", "okay2"));
+        languages.add(new Language(4, "Chinese", 20, "Disable spams filter", "okay3"));
     }
 
     private static List<String> stringList = new ArrayList<>();
@@ -32,7 +32,7 @@ public class LanguageRepo implements ILanguageRepo {
         integerList.add(5);
         integerList.add(10);
         integerList.add(15);
-        integerList.add(25);
+        integerList.add(20);
         integerList.add(50);
     }
 
@@ -58,6 +58,6 @@ public class LanguageRepo implements ILanguageRepo {
 
     @Override
     public void update(Language language, int id) {
-        languages.set(id,language);
+        languages.set(id-1,language);
     }
 }

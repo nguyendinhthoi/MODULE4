@@ -6,20 +6,20 @@ public class Language {
     private int id;
     private String name;
     private int size;
-    private int filter;
+    private String filter;
     private String signature;
 
     public Language() {
     }
 
-    public Language(String name, int size, int filter, String signature) {
+    public Language(String name, int size, String filter, String signature) {
         this.name = name;
         this.size = size;
         this.filter = filter;
         this.signature = signature;
     }
 
-    public Language(int id, String name, int size, int filter, String signature) {
+    public Language(int id, String name, int size, String filter, String signature) {
         this.id = id;
         this.name = name;
         this.size = size;
@@ -51,11 +51,11 @@ public class Language {
         this.size = size;
     }
 
-    public int getFilter() {
+    public String getFilter() {
         return filter;
     }
 
-    public void setFilter(int filter) {
+    public void setFilter(String filter) {
         this.filter = filter;
     }
 
