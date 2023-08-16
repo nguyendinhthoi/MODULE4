@@ -4,11 +4,6 @@
 <html>
 <head>
     <title>Edit Form</title>
-    <style>
-        .mess {
-            color: green;
-        }
-    </style>
 </head>
 <body>
 <h3>Setting</h3>
@@ -37,6 +32,5 @@
     <form:button>Submit</form:button>
     <a role="button" href="/language">Cancel</a>
 </form:form>
-<span class="mess">${message}</span>
 </body>
 </html>

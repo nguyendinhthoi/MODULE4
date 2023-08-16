@@ -18,6 +18,9 @@
         tr,th,td{
             border: 1px solid black;
         }
+        .mess {
+            color: green;
+        }
     </style>
 </head>
 <body>
@@ -39,5 +42,6 @@
         </tr>
     </c:forEach>
 </table>
+<span class="mess">${message}</span>
 </body>
 </html>
