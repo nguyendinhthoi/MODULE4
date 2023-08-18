@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Repository
-public class ProductRepo implements IProductRepo {
+public class ProductRepository implements IProductRepository {
     private static List<Product> products = new ArrayList<>();
 
     static {

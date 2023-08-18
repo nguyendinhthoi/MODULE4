@@ -4,7 +4,7 @@ import com.example.model.Language;
 
 import java.util.List;
 
-public interface ILanguageRepo {
+public interface ILanguageRepository {
     List<Language> display();
 
     Language findID(int id);

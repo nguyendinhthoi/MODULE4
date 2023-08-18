@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class LanguageRepo implements ILanguageRepo {
+public class LanguageRepository implements ILanguageRepository {
     private static List<Language> languages = new ArrayList<>();
 
     static {
