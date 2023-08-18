@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Detail</title>
+    <style>
+        .mess{
+            color: green;
+        }
+    </style>
+</head>
+<body>
+<div class="mess" th:text="${mess}"></div>
+<div th:if="${product}">
+Name:
+<span th:text="${product.getName()}"></span><br>
+Price:
+<span th:text="${product.getPrice()}"></span><br>
+Description:
+<span th:text="${product.getdescription()}"></span><br>
+Brand:
+<span th:text="${product.getBrand()}"></span><br>
+</div>
+<a href="/product">Back to list</a>
+</body>
+</html>
