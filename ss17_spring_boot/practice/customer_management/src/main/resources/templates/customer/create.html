@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Customer</title>
+
+
+</head>
+<body>
+<h1>Create customer</h1>
+<p>
+  <a href="/customer">Customer list</a>
+</p>
+<th:block th:if="${message}">
+  <p th:text="${message}"></p>
+</th:block>
+</body>
+</html>
