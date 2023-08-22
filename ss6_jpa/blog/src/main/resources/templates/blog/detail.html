@@ -7,6 +7,7 @@
 <body>
 <div th:text="${blog.name}"></div>
 <div th:text="${blog.description}"></div>
+<div th:text="${blog.getCategory().name}"></div>
 <a href="/blog" role="button">Back to list</a>
 </body>
 </html>

@@ -13,6 +13,7 @@
         </legend>
         <p th:text="${blog.name}"></p>
         <p th:text="${blog.description}"></p>
+        <p th:text="${blog.getCategory().name}"></p>
         <button type="submit">Delete</button>
         <a href="/blog" role="button">Back to list</a>
     </fieldset>

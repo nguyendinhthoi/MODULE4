@@ -13,6 +13,7 @@
     <tr>
         <th>STT</th>
         <th>Tittle</th>
+        <th>Category</th>
         <th>Description</th>
         <th>Detail</th>
         <th>Edit</th>
@@ -22,6 +23,7 @@
         <tr>
             <td th:text="${status.count}"></td>
             <td th:text="${blog.name}"></td>
+            <td th:text="${blog.getCategory().getName()}"></td>
             <td th:text="${blog.description}"></td>
             <td><a th:href="@{blog/detail/__${blog.id}__}">Detail</a></td>
             <td><a th:href="@{blog/edit/__${blog.id}__}">Edit</a></td>

@@ -1,7 +1,9 @@
 package com.example.blog.controller;
 
 import com.example.blog.model.Blog;
+import com.example.blog.model.Category;
 import com.example.blog.service.IBlogService;
+import com.example.blog.service.ICategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +16,8 @@ import java.util.List;
 public class BlogController {
     @Autowired
     private IBlogService blogService;
+    @Autowired
+    private ICategoryService categoryService;
 
     @GetMapping("")
     public String blogList(Model model) {
@@ -24,6 +28,8 @@ public class BlogController {
 
     @GetMapping("/create")
     public String createForm(Model model) {
+        List<Category> categories = categoryService.findAll();
+        model.addAttribute("categories", categories);
         model.addAttribute("blog", new Blog());
         return "/blog/create";
     }
@@ -38,6 +44,8 @@ public class BlogController {
     @GetMapping("/edit/{id}")
     public String editForm(Model model, @PathVariable int id) {
         Blog blog = blogService.findById(id);
+        List<Category> categories = categoryService.findAll();
+        model.addAttribute("categories", categories);
         model.addAttribute("blog", blog);
         return "/blog/edit";
     }
@@ -64,8 +72,8 @@ public class BlogController {
     }
 
     @GetMapping("/detail/{id}")
-    public String detail(Model model,@PathVariable int id) {
-        model.addAttribute("blog",blogService.findById(id));
+    public String detail(Model model, @PathVariable int id) {
+        model.addAttribute("blog", blogService.findById(id));
         return "blog/detail";
     }
 }
