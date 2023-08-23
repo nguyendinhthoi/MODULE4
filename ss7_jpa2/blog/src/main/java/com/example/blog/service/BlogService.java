@@ -29,7 +29,13 @@ public class BlogService implements IBlogService {
     }
 
     @Override
-    public Page<Blog> searchByName(Pageable pageable, String searchName) {
-        return blogRepository.findBlogByNameContaining(pageable, "%" + searchName + "%");
+    public Page<Blog> searchByName(Pageable pageable, String searchName,int id) {
+        return blogRepository.findBlogByNameContaining(pageable, "%" + searchName + "%", id);
+    }
+
+    @Override
+    public void edit(Blog blog, int id) {
+
+        blogRepository.edit(blog.getDescription(),blog.getName(),blog.getId(),id);
     }
 }

@@ -15,6 +15,14 @@
     <input id="search" type="text" th:value="${searchName}" name="searchName">
     <button type="submit">Search</button>
 </form>
+<a href="/blog/category">Category</a>
+
+<ul>
+    <li th:each="category : ${categories}" th:value="${category.idCategory}"
+            th:text="${category.name}">
+        <a th:href="@{blog?id=category.getIdCategory()}"></a>
+    </li>
+</ul>
 
 <table border="1" style="border-collapse: collapse">
     <tr>

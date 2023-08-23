@@ -26,11 +26,13 @@ public class BlogController {
     @GetMapping("")
     public String blogList(@RequestParam(defaultValue = "0", required = false) int page,
                            @RequestParam(defaultValue = "", required = false) String searchName,
+                           @RequestParam int id,
                            Model model) {
         Pageable pageable = PageRequest.of(page, 3, Sort.by("name").descending());
-        Page<Blog> blogPage = blogService.searchByName(pageable, searchName);
+        Page<Blog> blogPage = blogService.searchByName(pageable, searchName, id);
         model.addAttribute("blogPage", blogPage);
         model.addAttribute("searchName", searchName);
+        model.addAttribute("categories", categoryService.findAll());
         return "/blog/list";
     }
 
@@ -60,7 +62,9 @@ public class BlogController {
 
     @PostMapping("/edit")
     public String editBlog(Model model, Blog blog) {
-        blogService.save(blog);
+        blogService.edit(blog, blog.getId());
+        List<Category> categories = categoryService.findAll();
+        model.addAttribute("categories", categories);
         model.addAttribute("message", "Edited Successfully");
         return "/blog/edit";
     }
@@ -83,5 +87,52 @@ public class BlogController {
     public String detail(Model model, @PathVariable int id) {
         model.addAttribute("blog", blogService.findById(id));
         return "blog/detail";
+    }
+
+    @GetMapping("/category")
+    public String ListCategory(Model model) {
+        model.addAttribute("category", categoryService.findAll());
+        return "blog/category/list";
+    }
+
+    @GetMapping("/createCategory")
+    public String createFormCate(Model model) {
+        model.addAttribute("category", new Category());
+        return "/blog/category/create";
+    }
+
+    @PostMapping("/createCategory")
+    public String createCate(Model model, Category category) {
+        categoryService.save(category);
+        model.addAttribute("message", "Created Successfully");
+        return "/blog/category/create";
+    }
+
+    @GetMapping("/editCategory/{idCategory}")
+    public String editFormCate(Model model, @PathVariable int idCategory) {
+        Category category = categoryService.findById(idCategory);
+        model.addAttribute("category", category);
+        return "/blog/category/edit";
+    }
+
+    @PostMapping("/editCategory")
+    public String editBlogCate(Model model, Category category) {
+        categoryService.edit(category, category.getIdCategory());
+        model.addAttribute("message", "Edited Successfully");
+        return "/blog/category/edit";
+    }
+
+    @GetMapping("/deleteCategory/{id}")
+    public String deleteFormCate(Model model, @PathVariable int id) {
+        Category category = categoryService.findById(id);
+        model.addAttribute("category", category);
+        return "/blog/category/delete";
+    }
+
+    @PostMapping("/deleteCategory")
+    public String deleteCate(Model model, Category category) {
+        categoryService.deleteById(category.getIdCategory());
+        model.addAttribute("message", "Deleted Successfully");
+        return "redirect:/blog/category";
     }
 }

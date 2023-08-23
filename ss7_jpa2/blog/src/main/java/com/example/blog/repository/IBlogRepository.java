@@ -12,8 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 public interface IBlogRepository extends JpaRepository<Blog, Integer> {
-    @Query(value = "select * from blog where name like :name", nativeQuery = true)
-    Page<Blog> findBlogByNameContaining(Pageable pageable, @Param("name") String searchName);
+    @Query(value = "select * from blog where name like :name or id_category = :id", nativeQuery = true)
+    Page<Blog> findBlogByNameContaining(Pageable pageable, @Param("name") String searchName, @Param("id") int id);
 
     @Transactional
     @Modifying
@@ -27,4 +27,9 @@ public interface IBlogRepository extends JpaRepository<Blog, Integer> {
     @Modifying
     @Query(value = "delete from blog where id = :id", nativeQuery = true)
     void deleteById(@Param("id") int id);
+
+    @Transactional
+    @Modifying
+    @Query(value = "update blog set description = :description, name = :name, id_category = :id where id = :id1", nativeQuery = true)
+    void edit(@Param("description") String description, @Param("name") String name, @Param("id") int id, @Param("id1") int id1);
 }
