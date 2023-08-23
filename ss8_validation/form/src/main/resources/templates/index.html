@@ -1,12 +1,53 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>Create Form</title>
+    <style>
+        table {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
 
+        th, td {
+            border: 1px solid black;
+        }
+    </style>
 
 </head>
 <body>
-$END$
+<form action="/user" method="post" th:object="${user}">
+    <fieldset>
+        <legend>
+            <small>Create User</small>
+        </legend>
+        <table>
+            <tr>
+                <th>First name:</th>
+                <th>Last name:</th>
+                <th>Phone number:</th>
+                <th>Age:</th>
+                <th>Email:</th>
+            </tr>
+            <tr>
+                <td><input type="text" th:field="*{firstName}"></td>
+                <small style="color: red" th:if="${#fields.hasErrors()}" th:errors="*{firstName}"></small>
+
+                <td><input type="text" th:field="*{lastName}"></td>
+                <small style="color: red" th:if="${#fields.hasErrors()}" th:errors="*{lastName}"></small>
+
+                <td><input type="text" th:field="*{phoneNumber}"></td>
+                <small style="color: red" th:if="${#fields.hasErrors()}" th:errors="*{phoneNumber}"></small>
+
+                <td><input type="text" th:field="*{age}"></td>
+                <small style="color: red" th:if="${#fields.hasErrors()}" th:errors="*{age}"></small>
+
+                <td><input type="text" th:field="*{email}"></td>
+                <small style="color: red" th:if="${#fields.hasErrors()}" th:errors="*{email}"></small>
+            </tr>
+        </table>
+        <button type="submit">Create</button>
+    </fieldset>
+</form>
 </body>
 </html>

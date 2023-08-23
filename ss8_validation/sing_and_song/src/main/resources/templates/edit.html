@@ -1,12 +1,58 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>$Title$</title>
+  <title>Edit Form</title>
+  <style>
+    table {
+      border: 1px solid black;
+      border-collapse: collapse;
+    }
 
-
+    th, td {
+      border: 1px solid black;
+    }
+  </style>
 </head>
 <body>
-$END$
+<form action="/sing" method="post" th:object="${webSong}">
+  <fieldset>
+    <legend>
+      <small>Edit Song</small>
+    </legend>
+    <table>
+      <tr>
+        <th>Song name:</th>
+
+        <th>Artist name:</th>
+
+        <th>musicType:</th>
+
+      </tr>
+      <tr>
+        <td>
+          <input type="text" th:field="*{songName}">
+          <span>
+                    <small style="color: red" th:if="${#fields.hasErrors('songName')}" th:errors="*{songName}"></small>
+                </span>
+        </td>
+
+        <td><input type="text" th:field="*{artist}">
+          <span>
+                    <small style="color: red" th:if="${#fields.hasErrors('artist')}" th:errors="*{artist}"></small>
+                </span>
+        </td>
+
+        <td><input type="text" th:field="*{musicType}">
+          <span>
+                    <small style="color: red" th:if="${#fields.hasErrors('musicType')}"
+                           th:errors="*{musicType}"></small>
+                </span>
+        </td>
+      </tr>
+    </table>
+    <button type="submit">Create</button>
+  </fieldset>
+</form>
 </body>
 </html>
