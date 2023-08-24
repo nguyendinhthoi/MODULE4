@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Library</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+</head>
+<body>
+
+<form action="/library">
+    <input type="text" class="text-input" name="searchName" th:value="${searchName}">
+    <button type="submit" class="btn btn-primary">Search</button>
+</form>
+
+<table class="table table-hover">
+    <tr>
+        <th>#</th>
+        <th>Book</th>
+        <th>Quantity</th>
+        <th>Category</th>
+        <th>Rent</th>
+        <th>Give book back</th>
+    </tr>
+    <th:block th:each="book,status : ${library}">
+        <tr>
+            <td th:text="${status.count}"></td>
+            <td th:text="${book.bookName}"></td>
+            <td th:text="${book.quantity}"></td>
+            <td th:text="${book.category.getCategoryName()}"></td>
+            <td><a role="button" class="btn btn-primary" th:href="@{/library/rent/__${book.getBookId()}__}">Rent</a>
+            </td>
+        </tr>
+    </th:block>
+</table>
+
+<div class="container" style="display: flex;justify-content: center">
+    <a th:if="${library.hasPrevious()}" th:href="@{/library/(page=${library.number-1},searchName=${searchName})}" style="margin-right: 10px;">Previous</a>
+    <span th:text="${library.number+1}"></span>/<span th:text="${library.totalPages}"></span>
+    <a th:if="${library.hasNext()}" th:href="@{/library/(page=${library.number+1},searchName=${searchName})}" style="margin-left: 10px;">Next</a>
+</div>
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+        crossorigin="anonymous"></script>
+
+
+</body>
+</html>
