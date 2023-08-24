@@ -20,7 +20,7 @@
 <ul>
     <li th:each="category : ${categories}" th:value="${category.idCategory}"
             th:text="${category.name}">
-        <a th:href="@{blog?id=category.getIdCategory()}"></a>
+        <a th:href="@{blog/(id=${category.getIdCategory()})}"></a>
     </li>
 </ul>
 
