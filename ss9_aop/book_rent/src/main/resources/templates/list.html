@@ -17,7 +17,13 @@
     <input type="text" class="text-input" name="searchName" th:value="${searchName}">
     <button type="submit" class="btn btn-primary">Search</button>
 </form>
+
 <span id="message" th:text="${message}"></span>
+
+<a role="button" class="btn btn-primary" href="/library/history">History Rent</a>
+<a role="button" class="btn btn-primary" href="/library/payBack">Give a book back</a>
+
+
 <table class="table table-hover">
     <tr>
         <th>#</th>
@@ -25,7 +31,6 @@
         <th>Quantity</th>
         <th>Category</th>
         <th>Rent</th>
-        <th>Give book back</th>
     </tr>
     <th:block th:each="book,status : ${library}">
         <tr>
@@ -33,7 +38,8 @@
             <td th:text="${book.bookName}"></td>
             <td th:text="${book.quantity}"></td>
             <td th:text="${book.category.getCategoryName()}"></td>
-            <td><a role="button" class="btn btn-primary" th:href="@{/library/rent/__${book.getBookId()}__}">Rent</a>
+            <td><a th:hidden="${book.quantity<=0}" role="button" class="btn btn-primary"
+                   th:href="@{/library/rent/__${book.getBookId()}__}">Rent</a>
             </td>
         </tr>
     </th:block>

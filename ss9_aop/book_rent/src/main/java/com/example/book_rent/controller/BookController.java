@@ -3,6 +3,7 @@ package com.example.book_rent.controller;
 
 import com.example.book_rent.model.Book;
 import com.example.book_rent.model.Customer;
+import com.example.book_rent.model.OrderDetail;
 import com.example.book_rent.service.IBookService;
 import com.example.book_rent.service.ICategoryService;
 import com.example.book_rent.service.ICustomerService;
@@ -32,9 +33,7 @@ public class BookController {
     IOrderDetailService orderDetailService;
 
     @GetMapping("")
-    public String showList(@RequestParam(defaultValue = "0", required = false) int page,
-                           @RequestParam(defaultValue = "", required = false) String searchName,
-                           Model model) {
+    public String showList(@RequestParam(defaultValue = "0", required = false) int page, @RequestParam(defaultValue = "", required = false) String searchName, Model model) {
         Pageable pageable = PageRequest.of(page, 3, Sort.by("book_name").descending());
         Page<Book> libraryDtos = bookService.findAll(pageable, searchName);
         model.addAttribute("searchName", searchName);
@@ -56,10 +55,41 @@ public class BookController {
     @PostMapping("/rent")
     public String rentBook(RedirectAttributes redirectAttributes, Book book, @RequestParam int customerId, @RequestParam String code) {
         if (orderDetailService.save(book.getBookId(), Integer.parseInt(code), customerId)) {
-            book.setQuantity(book.getQuantity() - 1);
+            int quantity = book.getQuantity() - 1;
+            book.setQuantity(quantity);
             bookService.update(book, book.getBookId());
         }
         redirectAttributes.addFlashAttribute("message", "Rent successfully");
         return "redirect:/library";
+    }
+
+    @GetMapping("/history")
+    public String historyRent(Model model, @RequestParam(defaultValue = "0", required = false) int page) {
+        Pageable pageable = PageRequest.of(page, 5, Sort.by("book_id").ascending());
+        Page<OrderDetail> orderDetails = orderDetailService.findAll(pageable);
+        model.addAttribute("orderDetail", orderDetails);
+        return "history";
+    }
+
+    @GetMapping("/payBack")
+    public String showPayBack() {
+        return "rollBack";
+    }
+
+    @PostMapping("/payBack")
+    public String payBack(@RequestParam int code, RedirectAttributes redirectAttributes, Model model) {
+        OrderDetail orderDetail = orderDetailService.findByCode(code);
+        if (orderDetail != null) {
+            int id = orderDetail.getOrderId();
+            orderDetailService.deleteOrder(id);
+            int quantity = orderDetail.getBook().getQuantity() + 1;
+            orderDetail.getBook().setQuantity(quantity);
+            bookService.update(orderDetail.getBook(), orderDetail.getBook().getBookId());
+            redirectAttributes.addFlashAttribute("message", "Pay back successfully");
+            return "redirect:/library";
+        }
+        model.addAttribute("code", code);
+        model.addAttribute("message", "Code not found");
+        return "rollBack";
     }
 }

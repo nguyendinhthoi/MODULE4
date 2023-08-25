@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>History</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <style>
+        #message {
+            color: green;
+        }
+    </style>
+</head>
+<body>
+
+
+<span id="message" th:text="${message}"></span>
+
+<a role="button" class="btn btn-primary" href="/library">Back to list</a>
+
+<table class="table table-hover">
+    <tr>
+        <th>#</th>
+        <th>Book</th>
+        <th>Customer</th>
+        <th>Code</th>
+    </tr>
+    <th:block th:each="orderBill,status : ${orderDetail}">
+        <tr>
+            <td th:text="${status.count}"></td>
+            <td th:text="${orderBill.book.getBookName()}"></td>
+            <td th:text="${orderBill.customer.getCustomerName()}"></td>
+            <td th:text="${orderBill.code}"></td>
+        </tr>
+    </th:block>
+</table>
+
+<div class="container" style="display: flex;justify-content: center">
+    <a th:if="${orderDetail.hasPrevious()}" th:href="@{/library/history/(page=${orderDetail.number-1})}"
+       style="margin-right: 10px;">Previous</a>
+    <span th:text="${orderDetail.number+1}"></span>/<span th:text="${orderDetail.totalPages}"></span>
+    <a th:if="${orderDetail.hasNext()}" th:href="@{/library/history/(page=${orderDetail.number+1})}"
+       style="margin-left: 10px;">Next</a>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+        crossorigin="anonymous"></script>
+
+
+</body>
+</html>
