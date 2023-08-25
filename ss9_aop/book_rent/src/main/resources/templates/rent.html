@@ -6,7 +6,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <style>
-        table{
+        table {
             border: 1px solid black;
             border-collapse: collapse;
         }
@@ -17,7 +17,10 @@
     </style>
 </head>
 <body>
+
 <form action="/library/rent" method="post" th:object="${book}">
+    <input type="hidden" th:value="${code}" name="code">
+    <input type="hidden" th:field="*{bookId}" name="id">
     <fieldset>
         <legend>
             Book infomation
@@ -27,11 +30,19 @@
                 <th>Name of book</th>
                 <th>Type of book</th>
                 <th>Code</th>
+                <th>Customer</th>
             </tr>
             <tr>
-                <td th:field="*book.bookName}"></td>
-                <td th:field="*{book.category.getCategoryName()}"></td>
-                <td th:field="*{book.generateRandomCode()}"></td>
+                <td th:text="${book.bookName}"></td>
+                <td th:text="${book.category.getCategoryName()}"></td>
+                <td th:text="${code}"></td>
+                <td>
+                    <select name="customerId">
+                        <option th:each="customer : ${customers}" th:text="${customer.getCustomerName()}"
+                                th:value="${customer.getCustomerId()}">
+                        </option>
+                    </select>
+                </td>
             </tr>
         </table>
         <button type="submit" class="btn btn-primary">Rent</button>

@@ -8,4 +8,6 @@ public interface IBookService {
     Page<Book> findAll(Pageable pageable, String searchName);
 
     Book findById(int id);
+
+    void update(Book book, int bookId);
 }
