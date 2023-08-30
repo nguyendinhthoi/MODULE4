@@ -55,4 +55,11 @@ public class BlogService implements IBlogService {
     public List<Blog> findByCategory(int id) {
         return blogRepository.findByCategory(id);
     }
+
+    @Override
+    public Page<Blog> findAllAjax(Pageable pageable) {
+        return blogRepository.findAllAjax(pageable);
+    }
+
+
 }

@@ -24,4 +24,9 @@ public interface IBlogService {
     List<Blog> findAll();
 
     List<Blog> findByCategory(int id);
+
+
+
+
+    Page<Blog> findAllAjax(Pageable pageable);
 }

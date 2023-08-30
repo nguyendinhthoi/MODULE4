@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CrossOrigin("*")
 @RestController
+@CrossOrigin("*")
 @RequestMapping("/api/blog")
 public class RestBlogController {
     @Autowired
@@ -58,10 +58,19 @@ public class RestBlogController {
         }
         return new ResponseEntity<>(blogList, HttpStatus.OK);
     }
+    @GetMapping("/ajax/list")
+    public ResponseEntity<Page<Blog>> blogPage(@RequestParam int page) {
+        Pageable pageable = PageRequest.of(page, 3);
+        Page<Blog> blogPage = blogService.findAllAjax(pageable);
+        if (blogPage != null) {
+            return new ResponseEntity<>(blogPage, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 
-    @GetMapping("/ajax/search/{searchName}/{page}")
-    public ResponseEntity<Page<Blog>> blogPage(@PathVariable String searchName,
-                                               @PathVariable int page) {
+
+    @GetMapping("/ajax/search")
+    public ResponseEntity<Page<Blog>> searchPage(@RequestParam String searchName, @RequestParam int page) {
         Pageable pageable = PageRequest.of(page, 3);
         Page<Blog> blogPage = blogService.searchByName(pageable, searchName);
         if (blogPage != null) {
